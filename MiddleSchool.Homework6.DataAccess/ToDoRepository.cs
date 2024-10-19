@@ -11,39 +11,44 @@ namespace MiddleSchool.Homework6.DataAccess;
 
 internal class ToDoRepository : IToDoRepository
 {
-    private readonly string _connectionString;
+    private readonly DatabaseOptions _databaseOptions;
 
     public ToDoRepository(IOptions<DatabaseOptions> databaseOptions)
     {
-        _connectionString = databaseOptions.Value.ConnectionString;
+        _databaseOptions = databaseOptions.Value;
     }
 
     public async Task Add(ToDo entity, CancellationToken ct)
     {
-        await using var connection = new MySqlConnection(_connectionString);
+        await using var connection = new MySqlConnection(_databaseOptions.ConnectionString);
         await connection.OpenAsync(ct);
         await connection.ExecuteAsync(new CommandDefinition(
             Sql.AddTodo,
             ToDoMapper.ToDataAccess(entity),
+            commandTimeout: _databaseOptions.Timeout,
             cancellationToken: ct));
     }
 
     public async Task<IReadOnlyCollection<ToDo>> Get(CancellationToken ct)
     {
-        await using var connection = new MySqlConnection(_connectionString);
+        await using var connection = new MySqlConnection(_databaseOptions.ConnectionString);
         await connection.OpenAsync(ct);
-        var todos = await connection.QueryAsync<ToDoRecord>(new CommandDefinition(Sql.GetTodos, cancellationToken: ct));
+        var todos = await connection.QueryAsync<ToDoRecord>(new CommandDefinition(
+            Sql.GetTodos,
+            commandTimeout: _databaseOptions.Timeout,
+            cancellationToken: ct));
 
         return todos.Select(ToDoMapper.ToDomain).ToArray();
     }
 
     public async Task Update(ToDo entity, CancellationToken ct)
     {
-        await using var connection = new MySqlConnection(_connectionString);
+        await using var connection = new MySqlConnection(_databaseOptions.ConnectionString);
         await connection.OpenAsync(ct);
         await connection.ExecuteAsync(new CommandDefinition(
             Sql.UpdateTodo,
             ToDoMapper.ToDataAccess(entity),
+            commandTimeout: _databaseOptions.Timeout,
             cancellationToken: ct));
     }
 }

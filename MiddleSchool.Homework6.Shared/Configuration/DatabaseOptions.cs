@@ -7,5 +7,7 @@ public class DatabaseOptions
     public const string ConfigSectionName = "Database";
 
     [Required]
-    public required string ConnectionString { get; set; } = string.Empty;
+    public string ConnectionString { get; set; } = string.Empty;
+
+    public int? Timeout { get; set; }
 }
