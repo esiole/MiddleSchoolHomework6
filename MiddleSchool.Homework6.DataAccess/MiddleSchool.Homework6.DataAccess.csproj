@@ -8,10 +8,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MiddleSchool.Homework6.Domain\MiddleSchool.Homework6.Domain.csproj" />
+      <ProjectReference Include="..\MiddleSchool.Homework6.Shared\MiddleSchool.Homework6.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.35" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+      <PackageReference Include="MySqlConnector" Version="2.3.7" />
     </ItemGroup>
 
 </Project>

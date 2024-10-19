@@ -3,6 +3,7 @@ using MiddleSchool.Homework6.Api.Mapping;
 using MiddleSchool.Homework6.Api.Models;
 using MiddleSchool.Homework6.Application;
 using MiddleSchool.Homework6.Application.Abstractions;
+using MiddleSchool.Homework6.Shared.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,10 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 builder.Services.AddMiddleSchoolHomework6();
+builder.Services
+    .AddOptions<DatabaseOptions>()
+    .Bind(builder.Configuration.GetRequiredSection(DatabaseOptions.ConfigSectionName))
+    .ValidateDataAnnotations();
 
 var app = builder.Build();
 
