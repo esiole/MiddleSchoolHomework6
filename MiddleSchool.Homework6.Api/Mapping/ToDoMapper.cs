@@ -24,8 +24,8 @@ internal static class ToDoMapper
             Id = id ?? Guid.NewGuid(),
             Title = model.Title,
             Description = model.Description,
-            CreatedAtUtc = model.CreatedAtUtc,
-            UpdatedAtUtc = model.UpdatedAtUtc,
+            CreatedAtUtc = DateTime.UtcNow,
+            UpdatedAtUtc = DateTime.UtcNow,
         };
     }
 }

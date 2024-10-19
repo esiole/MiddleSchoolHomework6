@@ -32,7 +32,6 @@ internal static class Sql
                                         UPDATE todos
                                         SET Title = @{nameof(ToDoRecord.Title)},
                                             Description = @{nameof(ToDoRecord.Description)},
-                                            CreatedAtUtc = @{nameof(ToDoRecord.CreatedAtUtc)},
                                             UpdatedAtUtc = @{nameof(ToDoRecord.UpdatedAtUtc)}
                                         WHERE Id = @{nameof(ToDoRecord.Id)};
                                         """;
