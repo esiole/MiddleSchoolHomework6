@@ -15,7 +15,8 @@ internal static class Sql
                                              Description as {nameof(ToDoRecord.Description)},
                                              CreatedAtUtc as {nameof(ToDoRecord.CreatedAtUtc)},
                                              UpdatedAtUtc as {nameof(ToDoRecord.UpdatedAtUtc)}
-                                      FROM todos;
+                                      FROM todos
+                                      ORDER BY CreatedAtUtc DESC;
                                       """;
 
     internal static string GetTodoById(Guid id) => $"""
