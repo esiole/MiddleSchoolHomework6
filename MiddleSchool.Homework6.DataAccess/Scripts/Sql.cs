@@ -10,22 +10,22 @@ internal static class Sql
                                      """;
 
     internal const string GetTodos = $"""
-                                      SELECT Id @{nameof(ToDoRecord.Id)},
-                                             Title @{nameof(ToDoRecord.Title)},
-                                             Description @{nameof(ToDoRecord.Description)},
-                                             CreatedAtUtc @{nameof(ToDoRecord.CreatedAtUtc)},
-                                             UpdatedAtUtc @{nameof(ToDoRecord.UpdatedAtUtc)}
+                                      SELECT Id as {nameof(ToDoRecord.Id)},
+                                             Title as {nameof(ToDoRecord.Title)},
+                                             Description as {nameof(ToDoRecord.Description)},
+                                             CreatedAtUtc as {nameof(ToDoRecord.CreatedAtUtc)},
+                                             UpdatedAtUtc as {nameof(ToDoRecord.UpdatedAtUtc)}
                                       FROM todos;
                                       """;
 
     internal static string GetTodoById(Guid id) => $"""
-                                                    SELECT Id @{nameof(ToDoRecord.Id)},
-                                                           Title @{nameof(ToDoRecord.Title)},
-                                                           Description @{nameof(ToDoRecord.Description)},
-                                                           CreatedAtUtc @{nameof(ToDoRecord.CreatedAtUtc)},
-                                                           UpdatedAtUtc @{nameof(ToDoRecord.UpdatedAtUtc)}
+                                                    SELECT Id as {nameof(ToDoRecord.Id)},
+                                                           Title as {nameof(ToDoRecord.Title)},
+                                                           Description as {nameof(ToDoRecord.Description)},
+                                                           CreatedAtUtc as {nameof(ToDoRecord.CreatedAtUtc)},
+                                                           UpdatedAtUtc as {nameof(ToDoRecord.UpdatedAtUtc)}
                                                     FROM todos
-                                                    WHERE Id = {id};
+                                                    WHERE Id = ('{id}');
                                                     """;
 
     internal const string UpdateTodo = $"""
