@@ -6,5 +6,6 @@ public interface IToDoService
 {
     Task Add(ToDo entity, CancellationToken ct);
     Task<IReadOnlyCollection<ToDo>> Get(CancellationToken ct);
+    Task<ToDo?> GetById(Guid id, CancellationToken ct);
     Task Update(ToDo entity, CancellationToken ct);
 }

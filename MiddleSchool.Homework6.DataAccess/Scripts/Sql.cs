@@ -18,6 +18,16 @@ internal static class Sql
                                       FROM todos;
                                       """;
 
+    internal static string GetTodoById(Guid id) => $"""
+                                                    SELECT Id @{nameof(ToDoRecord.Id)},
+                                                           Title @{nameof(ToDoRecord.Title)},
+                                                           Description @{nameof(ToDoRecord.Description)},
+                                                           CreatedAtUtc @{nameof(ToDoRecord.CreatedAtUtc)},
+                                                           UpdatedAtUtc @{nameof(ToDoRecord.UpdatedAtUtc)}
+                                                    FROM todos
+                                                    WHERE Id = {id};
+                                                    """;
+
     internal const string UpdateTodo = $"""
                                         UPDATE todos
                                         SET Title = @{nameof(ToDoRecord.Title)},

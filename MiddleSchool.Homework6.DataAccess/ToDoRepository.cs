@@ -41,6 +41,18 @@ internal class ToDoRepository : IToDoRepository
         return todos.Select(ToDoMapper.ToDomain).ToArray();
     }
 
+    public async Task<ToDo?> GetById(Guid id, CancellationToken ct)
+    {
+        await using var connection = new MySqlConnection(_databaseOptions.ConnectionString);
+        await connection.OpenAsync(ct);
+        var todos = await connection.QueryAsync<ToDoRecord>(new CommandDefinition(
+            Sql.GetTodoById(id),
+            commandTimeout: _databaseOptions.Timeout,
+            cancellationToken: ct));
+
+        return todos.Select(ToDoMapper.ToDomain).SingleOrDefault();
+    }
+
     public async Task Update(ToDo entity, CancellationToken ct)
     {
         await using var connection = new MySqlConnection(_databaseOptions.ConnectionString);

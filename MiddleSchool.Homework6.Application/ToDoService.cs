@@ -15,6 +15,11 @@ internal class ToDoService(IToDoRepository repository) : IToDoService
         return await repository.Get(ct);
     }
 
+    public async Task<ToDo?> GetById(Guid id, CancellationToken ct)
+    {
+        return await repository.GetById(id, ct);
+    }
+
     public async Task Update(ToDo entity, CancellationToken ct)
     {
         await repository.Update(entity, ct);

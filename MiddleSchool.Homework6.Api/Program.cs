@@ -36,6 +36,14 @@ app.MapGet("/todos", async (IToDoService toDoService, CancellationToken ct) =>
     })
     .WithOpenApi();
 
+app.MapGet("/todos/{id:guid}", async (Guid id, IToDoService toDoService, CancellationToken ct) =>
+    {
+        var todo = await toDoService.GetById(id, ct);
+        return todo == null ? Results.NotFound() : Results.Ok(ToDoMapper.ToApiModel(todo));
+    })
+    .Produces<ToDoResponseModel>()
+    .Produces(StatusCodes.Status404NotFound);
+
 app.MapPost("/todos", async (ToDoRequestModel model, IToDoService toDoService, CancellationToken ct) =>
     {
         await toDoService.Add(ToDoMapper.ToDomain(model), ct);
