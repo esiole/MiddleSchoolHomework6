@@ -46,10 +46,11 @@ app.MapGet("/todos/{id:guid}", async (Guid id, IToDoService toDoService, Cancell
 
 app.MapPost("/todos", async (ToDoRequestModel model, IToDoService toDoService, CancellationToken ct) =>
     {
-        await toDoService.Add(ToDoMapper.ToDomain(model), ct);
-        return Results.Ok();
+        var domainModel = ToDoMapper.ToDomain(model);
+        await toDoService.Add(domainModel, ct);
+        return Results.Created($"/todos/{domainModel.Id}", null);
     })
-    .WithOpenApi();
+    .Produces(StatusCodes.Status201Created);
 
 app.MapPut("/todos/{id:guid}",
         async (Guid id, ToDoRequestModel model, IToDoService toDoService, CancellationToken ct) =>
