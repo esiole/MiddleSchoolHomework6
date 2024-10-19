@@ -26,14 +26,16 @@ public class ToDoResponseModel
     public required string Description { get; init; }
 
     /// <summary>
-    ///     Date of creation in UTC
+    ///     Date and time of creation in UTC
     /// </summary>
+    /// <example>2024-10-19T10:04:20.985Z</example>
     [Required]
-    public required DateOnly CreatedAtUtc { get; init; }
+    public required DateTime CreatedAtUtc { get; init; }
 
     /// <summary>
-    ///     Date of last update in UTC
+    ///     Date and time of last update in UTC
     /// </summary>
+    /// <example>2024-10-19T15:04:20.985Z</example>
     [Required]
-    public required DateOnly UpdatedAtUtc { get; init; }
+    public required DateTime UpdatedAtUtc { get; init; }
 }
